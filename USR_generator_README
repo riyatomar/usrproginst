@@ -1,18 +1,15 @@
-	
-(1) Create a folder name "usrproginst"
-
-(2) Now, create a virtual environment inside the "usrproginst" folder using following commands:
+(1) create a virtual environment inside the "usrproginst" folder using following commands:
 	cd usrproginst
-	python3 -m venv virtual
-	source virtual/bin/activate
+	python3 -m venv venv
+	source venv/bin/activate
 
 
-(3) Now, install iscnlp tokenizer, pos-tagger and parser 
+(2) Now, install iscnlp tokenizer, pos-tagger and parser 
 	Please follow the given repository link for the same [https://bitbucket.org/iscnlp/].
 	
-  First, install the tokenizer, then the pos-tagger, and then the parser.	
+First, install the tokenizer, then the pos-tagger, and then the parser.	
 	
-	Now read the readme given in the repository for all the three (tokenizer, pos-tagger, parser) and run the given commands in terminal.
+Now read the readme given in the repository for all the three (tokenizer, pos-tagger, parser) and run the given commands in 		terminal.
 	
 Note: Run first command in home directory itself
 ->>>>>>> (Remember to replace python with python3 while running 3rd step of Readme for all 3 i.e tokenizer, pos-tagger,parser i.e sudo python3 setup.py install) 
@@ -24,17 +21,17 @@ Note: While running 3rd command if you get error related to setuptools means pip
 	       $ pip install -r requirements.txt
 
 		
-(4) Files and folders creation
-->>>> After installing, create a input text file named "sentences_for_USR" that contains Hindi Sentence/sentences with their respective IDs separated by double space.
+(3) Files and folders creation
+->>>> After installing, create a input file named "sentences_for_USR" that contains Hindi Sentence/sentences with their respective IDs separated by double space.
 		Eg. 123  राम खाना खाता है |
 
-->>>> Now make one folder within "usrproginst" folder named "txt_files" and a text file named "bh-1" inside the same folder i.e txt_files for the generation of single USR.
+->>>> Now make one folder within "usrproginst" folder named "txt_files" and a text file named "bh-1" inside the same folder (i.e txt_files) for the generation of single USR.
 
 ->>>> Make two folder named "bulk_USRs" and "bulk_USRs_mod" in the "usrproginst folder" for bulk generation.
  
-->>>> Also make one text file named "bh-2" within "usrproginst" folder.
+->>>> Also make one text file named "bh-2" within "usrproginst" folder for temporary use.
 
-(5) Run the following commands on terminal inside usrproginst folder:
+(4) Run the following commands on terminal inside usrproginst folder:
 	i) sudo apt install python2
 	ii) sudo snap install curl
 	iii) curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
@@ -42,16 +39,20 @@ Note: While running 3rd command if you get error related to setuptools means pip
 	v) sudo apt-get install python-requests
 	vi) sudo bash install-project.sh
 
-(6) To run the NER model, install the transformers and torch using following command:
+(5) To run the NER model, install the transformers and torch using following command:
 	pip3 install transformers
 	pip3 install torch
 	if any error occurred then run the following command:
 		pip3 install transformers[torch]
 		
-(7) Run the following command to compile the apertium:
+(6) Run the following command to compile the apertium:
 	sh compile_dict.sh
-		
-(8) Now move wx_utf8, utf8_wx and ir_no@ files to bin folder by running the following command on terminal.
+
+(7) Run the following command to install wxconv:
+	pip3 install WXC
+	pip3 install wxconv
+			
+(8) Copy wx_utf8, utf8_wx and ir_no@ files to bin folder by running the following command on terminal.
 	i) cd /usr/bin/
 	ii) sudo cp ~/usrproginst/wx_utf8 .
 	iii) sudo cp ~/usrproginst/utf8_wx .
@@ -70,12 +71,15 @@ After running the above commands now run the following commands:-
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Steps for Generating USR:
+Steps for Generating concept row:
 
-(i) Keep the sentences with their respective IDs seperated by double space in the "sentences_for_USR" file.
-(ii) Now, run the following command on the terminal:
-	python3 run_generate_usr.py
-(iii) Output USR files will be stored in "bulk_USRs" folder.
+(i) Keep the Hindi sentence in the bh-1 file within "txt_files" folder
+(ii) Run the following command on the terminal:
+	python3 generate_concept_row.py
+
+To generate rest of the rows, run the following command:
+	python3 row3_to_row11.py
+
 
 
    
