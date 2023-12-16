@@ -1,6 +1,6 @@
 from usr_func import get_prune_output_list, get_info_list_final, get_wx_output_list, \
             get_wx_words_dictionary, get_wx_words_dictionary_new, get_parser_output_list, get_NER_dict
-from concepts import get_row2
+from concept_row_module import get_row2
 
 #row 4
 def get_row4(row_2, pruneOutputList, nerDict):
