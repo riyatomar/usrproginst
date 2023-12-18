@@ -4,31 +4,15 @@
 	>>> source venv/bin/activate
 
 
-2. Install iscnlp tokenizer, pos-tagger and parser 
-	Please follow the given repository link for the same [https://bitbucket.org/iscnlp/].
+2. Install iscnlp tokenizer, pos-tagger and parser by running the following script:
+	>>> sh install_parser.sh
 	
-First, install the tokenizer, then the pos-tagger, and then the parser.	
-	
-Now read the readme given in the repository for all three (i.e., tokenizer, pos-tagger, and parser) and run the given commands in terminal.
-	
-Note: Run first command in home directory itself
-->>>>>>> (Remember to replace python with python3 while running 3rd step of Readme for all 3 i.e tokenizer, pos-tagger, and parser i.e sudo python3 setup.py install) 
-
-Note: While running 3rd command if you get error related to setuptools means pip is not installed in your system then run the following command :-
-        sudo apt install python3-pip
- 
-	In pos-tagger and parser,run the dependencies code after installing them with given command:
-	       $ pip install -r requirements.txt
-
 		
 3. Files and folders creation: 
 	>>> After installing, create a input file named "sentences_for_USR" that contains Hindi Sentence/sentences with their respective IDs separated by double space.
 			Eg. 123  राम खाना खाता है |
-
 	>>> Now create one folder within "usrproginst" folder named "txt_files" and a text file named "bh-1" inside the same folder for the generation of single USR.
-
 	>>> Create two folder named "bulk_USRs" and "bulk_USRs_mod" in the "usrproginst folder" for bulk generation.
-	
 	>>> Also create one text file named "bh-2" within "usrproginst" folder for temporary use.
 
 
@@ -44,7 +28,7 @@ Note: While running 3rd command if you get error related to setuptools means pip
 5. To run the NER model, install the transformers and torch using following commands:
 	>>> pip3 install transformers
 	>>> pip3 install torch
-	if any error occurred then run this command:
+	if any error occurred then run this:
 		>>> pip3 install transformers[torch]
 		
 
