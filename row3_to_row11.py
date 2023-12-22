@@ -2,10 +2,11 @@ import os
 
 
 scripts=[
-    "run_script.py"
+    "run_script.py",
     "indexing_module.py", 
     "sem_cat_module.py",
     "morpho_sem_module.py", 
+    "dependency_module.py",
     "discourse_module.py",
     "spk_view_module.py", 
     "scope_module.py",

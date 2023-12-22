@@ -79,6 +79,8 @@ Steps for Generating concept row in bulk:
 	>>> python3 generate_bulk_concept.py
 Output will be stored in "bulk_USRs" folder. 
 
+===================================================================
+
 
 
 
