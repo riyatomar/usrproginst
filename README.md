@@ -80,7 +80,17 @@ Steps for Generating concept row in bulk:
 Output will be stored in "bulk_USRs" folder. 
 
 ===================================================================
+Run the following commands to generate different row in bulk:
 
+[1] Concept row: python3 generate_bulk_concept.py
+[2] Index row: python3 generate_bulk_index.py
+[3] Sementic Category row: python3 generate_bulk_sem_cat.py
+[4] Morpho Sementic row: python3 generate_bulk_morph_sem.py
+[5] Dependency row: python3 generate_bulk_dependency.py
+[6] Discourse row: python3 generate_bulk_discourse.py
+[7] Speaker View row: python3 generate_bulk_spk_view.py
+[8] Scope row: python3 generate_bulk_scope.py
+[9] Sentence Type row: python3 generate_bulk_sent_type.py
 
 
 
