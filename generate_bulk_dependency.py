@@ -1,9 +1,9 @@
 import os
 
 file_name = open("sentences_for_USR", "r", encoding="UTF-8")
-bulk_index_folder = "bulk_index"
-if not os.path.exists(bulk_index_folder):
-    os.makedirs(bulk_index_folder)
+bulk_folder = "bulk_dependency"
+if not os.path.exists(bulk_folder):
+    os.makedirs(bulk_folder)
 
 file_to_paste_temp = open("bh-2", "r+", encoding="UTF-8")
 
@@ -29,7 +29,7 @@ for sentence in file_name:
 
         # Execute commands
         os.system("python3 run_script.py")
-        os.system("python3 dependency_module.py > {}/{}".format(bulk_index_folder, s_id))
+        os.system("python3 dependency_module.py > {}/{}".format(bulk_folder, s_id))
 
     except Exception as e:
         print(e)
