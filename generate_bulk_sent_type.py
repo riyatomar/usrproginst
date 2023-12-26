@@ -9,13 +9,32 @@ file_to_paste_temp = open("bh-2", "r+", encoding="UTF-8")
 
 for sentence in file_name:
     sentence = sentence.strip()
-    print(sentence)
     try:
         file_to_paste = open("txt_files/bh-1", "r+", encoding="UTF-8")
         s_id = sentence.split("  ")[0]
         orig_sent = sentence.split("  ")[1].strip()
         orig_sent_copy = sentence.split("  ")[1]
+        store=""
+        if s_id[len(s_id)-1] == 'F':
+            store="fragment"
+        elif s_id[len(s_id)-1] == 'T':
+            store="title"
+        elif s_id[len(s_id)-1] == 'H':
+            store="heading"
+        else:
+            if "nahI" in orig_sent or "nahIM" in orig_sent:
+                store="Negative"
+            else:
+                if "?" in orig_sent:
+                    store="interrogative"
+                elif "|" in orig_sent or "." in orig_sent:
+                    store="affirmative"
+                elif "!" in orig_sent:
+                    store="exclamatory"
 
+        with open(os.path.join(bulk_folder, s_id), 'w') as uif:
+            uif.write(store)
+        
         # Write original sentence to 'bh-1' file
         file_to_paste.seek(0)
         file_to_paste.write(orig_sent)
@@ -29,7 +48,7 @@ for sentence in file_name:
 
         # Execute commands
         os.system("python3 run_script.py")
-        os.system("python3 sent_type_module.py > {}/{}".format(bulk_folder, s_id))
+        
 
     except Exception as e:
         print(e)
