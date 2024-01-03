@@ -26,18 +26,7 @@ def get_row4(row_2, pruneOutputList, nerDict):
             if flag==0:
                 sem_category_list.append("")
     
-    # for item in pruneOutputList:
-    #     # print(infoListFinal)
-    #     split_item=item.split(",")
-    #     gen_info=split_item[3]
-    #     # print(gen_info)
-    #     if gen_info=="m":
-    #         gender_info="male"
-    #     elif gen_info=="f":
-    #         gender_info="female"
-    #     elif gen_info=="unk":
-    #         gender_info=""
-    # sem_category_list.append(gender_info)
+
     
     
     return sem_category_list

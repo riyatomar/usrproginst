@@ -178,26 +178,24 @@ def for_handling_prpc(word,word_index, rootWordDictReverse, infoListFinal, wxWor
     
 
 def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary):
-    
     counter=0
-    for word in wxOutputList:
-        
-        word_index=wxWordsDictinaryNew[word] #word index of the word in wx_list
+    temp_use={}
+    for i in range(len(wxOutputList)):
+        word=wxOutputList[i]
+        word_index=i+1 #word index of the word in wx_list
         for line in infoListFinal:
             if word_index in line:
                 pos_tag=line[1]
                 class_index=int(line[2])
                 word_info=line[3]
-                #print("word_info:",word_info)
-                #dependency=
         #main condition check begins here:
         
         if pos_tag=="PSP"  or pos_tag=="SYM" or pos_tag=="CC" or pos_tag=="RP":
             continue
         elif pos_tag=="VM" and word_info=="main": #Do not add suffix for these words because we have to do TAM search on them and it creates a problem later.
-            #print("this is the word:",word)
+            
             root_word=get_root_word(word, rootWordDictReverse)
-            vector_8th=get_8th_vector(word, suffixDictionary)
+            vector_8th=get_8th_vector(word, suffixDictionary) 
             if word in VM_already_visited:
                 
                 root_word=VM_already_visited[word]
@@ -216,7 +214,6 @@ def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary)
                     temp=wxWordsDictinary[word_index]
                     #temp_root=root_word_dict_reverse[temp]
                     final_word=final_word+"_"+temp
-                    #print(final_word)
                     already_visited[temp]=1
                 else:
                     break
@@ -232,24 +229,29 @@ def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary)
                 root_word=get_root_word(word, rootWordDictReverse)
                 concept_list.append(root_word+"_1")
         elif pos_tag=="NNC" or word_info=="pof":
-
-            final_word=for_handling_nnc_tag_or_pof(word,class_index,wxWordsDictionary)
+            if class_index in temp_use:
+                concept_list.remove(temp_use[class_index]) 
+                del temp_use[class_index]  
+            final_word=for_handling_nnc_tag_or_pof(word,class_index,wxWordsDictionary,word_info)
+            temp_use[class_index]=final_word
             concept_list.append(final_word)
         elif pos_tag=="PRPC":
-            #print("word in use",word)
             final_word=for_handling_prpc(word,word_index)
             concept_list.append(final_word)
         else:
-            if word in already_visited:
+            if word in already_visited and word_index in already_visited.values():
                 continue
             root_word=get_root_word(word, rootWordDictReverse)
+            
             if pos_tag=="PRP" or pos_tag=="DEM" or pos_tag=="NNP" or pos_tag=="QC":
                 concept_list.append(root_word)
             else:
-                concept_list.append(root_word+"_1")
+                if(word_index not in already_visited):
+                    concept_list.append(root_word+"_1")
+            
+            
         counter+=1
     
-    #print(concept_list)
     concept_list_final=search_tam_row2(concept_list, rootWordDict, rootWordDictReverse, suffixDictionary)
     #print("concept list final:",concept_list_final)
     return concept_list_final

@@ -13,7 +13,6 @@ git clone https://irshadbhat@bitbucket.org/iscnlp/pos-tagger.git
 cd pos-tagger
 sudo python3 setup.py install
 pip3 install -r requirements.txt
-mv isc_tagger ../
 cd ..
 echo " pos-tagger installed"
 echo "===================="
@@ -23,7 +22,6 @@ git clone https://irshadbhat@bitbucket.org/iscnlp/parser.git
 cd parser
 sudo python3 setup.py install
 pip3 install -r requirements.txt
-mv isc_parser ../
 cd ..
 echo "parser insatlled"
 echo "===================="

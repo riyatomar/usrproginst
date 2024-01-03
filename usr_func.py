@@ -1,5 +1,3 @@
-import re
-
 parser_file_input="txt_files/parser-output.txt"
 prune_file_input="txt_files/prune-output.txt"
 wx_file_input="txt_files/wx.txt"
@@ -48,7 +46,7 @@ def get_root_word_dict(pruneOutputList):
     #root word dictionary
     root_word_dict={} #key=root_word and value is wx_word
     for sent in pruneOutputList:
-        split_sent=sent.split(",")
+        split_sent=sent.split("\t")
         wx_word=split_sent[1]
         root_word=split_sent[2]
         root_word_dict[root_word]=wx_word
@@ -60,7 +58,7 @@ rootWordDict=get_root_word_dict(pruneOutputList)
 def get_root_word_dict_reverse(pruneOutputList):
     root_word_dict_reverse={} #key==wx_word and value is root_word from prune output
     for sent in pruneOutputList:
-        split_sent=sent.split(",")
+        split_sent=sent.split("\t")
         wx_word=split_sent[1]
         root_word=split_sent[2]
         root_word_dict_reverse[wx_word]=root_word
@@ -74,7 +72,7 @@ def get_suffix_dictionary():
     suffix_dictionary={}
     word=str()
     for sent in pruneOutputList:
-        split_sent=sent.split(",")
+        split_sent=sent.split("\t")
         wx_word=split_sent[1]
         #print(split_sent)
         suffix=split_sent[6]
@@ -232,19 +230,41 @@ def get_root_word(word, rootWordDictReverse):#updated
     return root_word
 
 #=================================================================   
-def for_handling_nnc_tag_or_pof(word,class_index,wxWordsDictionary):
-    # print("current word",word)
+def for_handling_nnc_tag_or_pof(word,class_index,wxWordsDictionary,word_info):
+    # print("word  "+word)
+    # print("class_index  "+str(class_index))
+    # print(wxWordsDictionary)
+    # print(infoListFinal)
     root_word=get_root_word(word, rootWordDictReverse)
     class_word=wxWordsDictionary[class_index]
-    already_visited[class_word]=1
-    if class_word in VM_already_visited:
+    already_visited[class_index]=class_word
+    first_key=class_index
+    if len(already_visited)>1:
+        first_key = next(iter(already_visited))
+        del already_visited[first_key]
+        
+    # print(root_word)
+    # print("already")
+    # print(already_visited)
+    # print("VM")
+    # print(VM_already_visited)
+    if class_word in VM_already_visited and class_index == first_key:
         root_word_class=VM_already_visited[class_word]
-        concept_list.remove(root_word_class)
-    else:
+    else:   
         root_word_class=get_root_word(class_word, rootWordDictReverse)
-    # print("rwc_0:",root_word_class)
-    final_word=root_word+"+"+root_word_class
-    VM_already_visited[class_word]=final_word
+    if(root_word_class.rfind('+')==-1):
+        root_word_class+="_1"
+    else:
+        last_plus_index = root_word_class.rfind('+')
+        root_word=root_word_class[:last_plus_index]+"+"+root_word
+        root_word_class=root_word_class[last_plus_index + 1:]
+    if word_info=="pof__cn":
+        final_word=root_word+"_1"+"+"+root_word_class
+        VM_already_visited[class_word]=final_word
+    if word_info=="pof":
+        final_word=root_word+"+"+root_word_class
+        VM_already_visited[class_word]=final_word
+    # print(final_word)
     return final_word
 
 #=============================================================
