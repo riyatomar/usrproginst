@@ -10,7 +10,8 @@ scripts=[
     "discourse_module.py",
     "spk_view_module.py", 
     "scope_module.py",
-    "sent_type_module.py"
+    "sent_type_module.py",
+    "construction_module.py"
 ]
 
 def run_script(script_name):
