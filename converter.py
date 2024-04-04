@@ -10,14 +10,14 @@ def create_pos_mapped_dict(pos_tag):
         if pos_tag[inx] in mapper_dict:
             mapped_op=mapper_dict[pos_tag[inx]]
             pos_tag[inx]=mapped_op
-    #print("pos_tag_after:",pos_tag)
+    # print("pos_tag_after:",pos_tag)
     return pos_tag
 def process_morph_output(pos_tag,morph_file):
 #Open morph-output file and process it's contents.
     words_to_ignore_for_root=["hE"]
     f=open(morph_file,"r")
     item_c=0
-    counter=0
+    counter=1
     word_counter=0
     filtered_match=[]
     final_match=[]
@@ -39,12 +39,16 @@ def process_morph_output(pos_tag,morph_file):
         # print("matches:",matches)
         for word_inx in range(len(matches)):
             #print("word:",word)
+            # print(matches[word_inx])
+            # print(pos_tag[counter])
             if matches[word_inx] == pos_tag[counter]:
+                
                 #print("word found",word)
                 first_inx=word_inx
-                #print("f_i:",first_inx)
+                # print(first_inx)
+                # print("f_i:",first_inx)
                 sent=line.split("/")[first_inx+1]
-                #print("sent:",sent)
+                # print("sent:",sent)
                 matched_span.append("/"+sent.strip())
                 flag=1
                 
@@ -163,9 +167,9 @@ def write_final_output(original_word,root_word,gender,number,person,tam,prune_fi
     f=open(prune_file,"w")
     for i in range(len(original_word)):
         try:
-            f.write(str(i+1)+","+original_word[i]+","+root_word[i].strip("*")+","+gender[i].split(":")[1]+","+number[i].split(":")[1]+","+person[i].split(":")[1]+","+tam[i].split(":")[1]+"\n")
+            f.write(str(i+1)+"\t"+original_word[i]+"\t"+root_word[i].strip("*")+"\t"+gender[i].split(":")[1]+"\t"+number[i].split(":")[1]+"\t"+person[i].split(":")[1]+"\t"+tam[i].split(":")[1]+"\n")
         except:
-            f.write(str(i+1)+","+original_word[i]+","+root_word[i].strip("*")+","+"unk"+","+"unk"+","+"unk"+","+"unk"+"\n")
+            f.write(str(i+1)+"\t"+original_word[i]+"\t"+root_word[i].strip("*")+"\t"+"unk"+"\t"+"unk"+"\t"+"unk"+"\t"+"unk"+"\n")
 
 if __name__=="__main__":
     #Open the parser output file and extract info of pos tag 
@@ -185,9 +189,9 @@ if __name__=="__main__":
     f.close()
     pos_tag=create_pos_mapped_dict(pos_tag,)
     matched_span,original_word=process_morph_output(pos_tag,morph_file)
-    #print(matched_span)
+    # print(matched_span)
     root_word=extract_root_words(matched_span)
     # print(root_word)
     gender,number,person,tam=extract_gnp_and_tam(matched_span)
-    #print(gender)
+    # print(gender)
     write_final_output(original_word,root_word,gender,number,person,tam,prune_file)
