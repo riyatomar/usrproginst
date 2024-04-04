@@ -26,7 +26,7 @@ for sentence in file_name:
         #----------------------------------------------------------
         os.system("python3 sentence_check.py")
         os.system("python3 run_script.py")
-        os.system("python3 generate_usr.py>bulk_USRs/"+s_id)
+        os.system("python3 complete_usr.py>bulk_USRs/"+s_id)
         #os.system("python3 delete_1.py")
     except Exception as e:
         print(e)
