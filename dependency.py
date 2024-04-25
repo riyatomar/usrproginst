@@ -5,6 +5,7 @@ from isc_parser import Parser
 parser = Parser(lang='hin')
 from wxconv import WXC
 
+
 verb_lst = ['bol', 'kah', 'pUC']
 we_lst = ['wA', 'wI', 'we']
 hue_lst = ['huA', 'huI', 'hue']
@@ -117,7 +118,8 @@ def process_relation(output):
         "jjmod__intf": "intf",
         "nmod__k1inv": "rvks",
         "nmod__k2inv": "rbks",
-        "nmod":"mod"
+        "nmod":"mod",
+        "lwg__psp":"k7p"
     }
 
     #to fetch necessary rule info in first iteration
@@ -252,6 +254,8 @@ def process_relation(output):
                 if is_followed_by(output, index, 'pAsa'):
                     up_dep = 'rsm'
                     row[7] = up_dep
+            # elif dep_reln == 'jjmod':
+            #     up_dep = 'dem'
 
     #For vmod processing
     for row in output:
@@ -291,6 +295,10 @@ def process_relation(output):
                     elif is_followed_by(output, index, 'ke bAxa'):
                         up_dep = 'rblpk'
                         row[7] = up_dep
+                    elif is_followed_by(output, index, 'ke samaya'):
+                        up_dep = 'rblsk'
+                        row[7] = up_dep
+                    
 
     #For CC and ccof processing
     if CC_exists:
