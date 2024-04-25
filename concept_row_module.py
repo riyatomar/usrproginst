@@ -1,5 +1,6 @@
 from usr_func import *
 
+# print(wxWordsDictionary)
 def word_search_from_end(search_word, rootWordDict, tamDictionaryList):
     
     if "_1" in search_word:
@@ -163,7 +164,7 @@ def pronouns_n_qnwords_to_replace(concept_list):
 def for_handling_prpc(word,word_index, rootWordDictReverse, infoListFinal, wxWordsDictinary):
     #print("wi",word_index)
     line= infoListFinal[word_index] #updated simply vaux to vaux root
-    #print("line",line)
+    # print("line",line)
     pos_tag=line[1]
     if pos_tag=="PRP":
         word_index=line[0]
@@ -189,9 +190,16 @@ def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary)
                 class_index=int(line[2])
                 word_info=line[3]
         #main condition check begins here:
-        
         if pos_tag=="PSP"  or pos_tag=="SYM" or pos_tag=="CC" or pos_tag=="RP":
             continue
+        if pos_tag == "NST" and wxWordsDictinary[word_index] in ('bAxa', 'pahale', 'paScAw'):
+            # print(wxWordsDictinary[word_index])
+            if word_index >= 3:  
+                prev_pos_tag = infoListFinal[word_index - 3][1]
+                # print(prev_pos_tag)
+                if prev_pos_tag == "VM":
+                    continue
+
         elif pos_tag=="VM" and word_info=="main": #Do not add suffix for these words because we have to do TAM search on them and it creates a problem later.
             
             root_word=get_root_word(word, rootWordDictReverse)
