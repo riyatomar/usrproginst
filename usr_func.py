@@ -79,6 +79,18 @@ def get_suffix_dictionary():
         suffix_dictionary[wx_word]=suffix
     return suffix_dictionary
 #==============================================================
+def get_person_dictionary():
+#creating a suffix dictionary where key is word and value is suffix a.k.a 8th vector
+    person_dictionary={}
+    word=str()
+    for sent in pruneOutputList:
+        split_sent=sent.split("\t")
+        wx_word=split_sent[1]
+        #print(split_sent)
+        person=split_sent[5]
+        person_dictionary[wx_word]=person
+    return person_dictionary
+#==============================================================
 suffixDictionary=get_suffix_dictionary()
 #===============================================================
 
@@ -120,21 +132,21 @@ def get_wx_words_dictionary_new():
 wxWordsDictinaryNew=get_wx_words_dictionary_new()
 #==================================================================
 
-def get_NER_dict():
-    #Open NER file and append its output into a list
-    NER_dict={}
-    inx=0
-    y=open(ner_file_input,"r")
-    for line in y:
-        inx+=1
-        token=line.strip()
-        if token.split("\t")[1]!="O":
-            wx_word=wxWordsDictionary[inx]
-            #print(wx_word)
-            NER_dict[wx_word]=token.split("\t")[1]
-    return NER_dict
-#====================================================================
-nerDict=get_NER_dict()
+# def get_NER_dict():
+#     #Open NER file and append its output into a list
+#     NER_dict={}
+#     inx=0
+#     y=open(ner_file_input,"r")
+#     for line in y:
+#         inx+=1
+#         token=line.strip()
+#         if token.split("\t")[1]!="O":
+#             wx_word=wxWordsDictionary[inx]
+#             #print(wx_word)
+#             NER_dict[wx_word]=token.split("\t")[1]
+#     return NER_dict
+# #====================================================================
+# nerDict=get_NER_dict()
 #====================================================================
 
 concept_list=[]
@@ -241,8 +253,7 @@ def for_handling_nnc_tag_or_pof(word,class_index,wxWordsDictionary,word_info):
     first_key=class_index
     if len(already_visited)>1:
         first_key = next(iter(already_visited))
-        del already_visited[first_key]
-        
+        del already_visited[first_key] 
     # print(root_word)
     # print("already")
     # print(already_visited)
@@ -271,6 +282,7 @@ def for_handling_nnc_tag_or_pof(word,class_index,wxWordsDictionary,word_info):
 #Step 1:Take the second row and identfify TAMs present in them.
 def identify_vb(concept_list):
     tam_list_row2=[]
+    # print(concept_list)
     for concept in concept_list:
         if "-" in concept:
             tam_list_row2.append(concept)
