@@ -119,13 +119,14 @@ def process_relation(output):
         "nmod__k1inv": "rvks",
         "nmod__k2inv": "rbks",
         "nmod":"mod",
-        "lwg__psp":"k7p"
+        "nmod__relc":"rc"  #rule added
     }
 
     #to fetch necessary rule info in first iteration
     words = []
     verbs = []
     k2exists = False
+    k1exists = False
     k2gexists = False
     k4exists = False
     k5exists = False
@@ -133,9 +134,11 @@ def process_relation(output):
     head_verb_exists = False
     VM_1_exists = False
     VM_2_exists = False
+    pof_exists = False
     CC_count = 0
 
     for row in output:
+        # print(row[1])
         if len(row) > 0:
             if row[7] == 'k2':
                 k2exists = True
@@ -154,6 +157,23 @@ def process_relation(output):
             elif row[7] == 'k5':
                 k5exists = True
                 k5_index = row[0]
+            elif row[7] == 'pof':  #rule added
+                pof_exists = True
+                pof_index = row[0]
+                # print(pof_index, "-----")
+            elif row[7] == "k1":
+                k1exists = True
+
+            if not k1exists and pof_exists: #rule added
+                prev_index = pof_index - 2
+                if prev_index >= 0 and output[prev_index][7] == "nmod__adj":
+                    output[prev_index][7] = 'k1'
+
+            if k1exists and pof_exists:
+                prev_index = pof_index - 2
+                if prev_index >= 0 and output[prev_index][7] == "nmod__adj":
+                    output[prev_index][7] = 'k2'
+
             if row[3] == 'CC':
                 CC_count = CC_count + 1
             if not CC_exists and row[3] == 'CC':
@@ -231,6 +251,9 @@ def process_relation(output):
             elif dep_reln == 'lwg__neg' and POS_tag == 'NEG':
                 up_dep = 'neg'
                 row[7] = up_dep
+            elif POS_tag == 'PRP' and dep_reln == 'jjmod': #rule added 
+                up_dep = 'dem'
+                row[7] = up_dep
             elif dep_reln in dependency_mapper:
                 up_dep = dependency_mapper[dep_reln]
                 row[7] = up_dep
@@ -254,8 +277,10 @@ def process_relation(output):
                 if is_followed_by(output, index, 'pAsa'):
                     up_dep = 'rsm'
                     row[7] = up_dep
-            # elif dep_reln == 'jjmod':
-            #     up_dep = 'dem'
+            elif POS_tag == 'NST' and dep_reln == 'lwg__psp': #rule added
+                up_dep = 'k7p'
+                row[7] = up_dep
+            
 
     #For vmod processing
     for row in output:
@@ -295,10 +320,13 @@ def process_relation(output):
                     elif is_followed_by(output, index, 'ke bAxa'):
                         up_dep = 'rblpk'
                         row[7] = up_dep
-                    elif is_followed_by(output, index, 'ke samaya'):
+                    elif is_followed_by(output, index, 'ke samaya'): #rule added
                         up_dep = 'rblsk'
                         row[7] = up_dep
                     
+    # for row in output:
+    #     if row[7] == 'pof'
+
 
     #For CC and ccof processing
     if CC_exists:
