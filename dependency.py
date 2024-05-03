@@ -122,7 +122,7 @@ def process_relation(output):
         "nmod__relc":"rc"  #rule added
     }
 
-    spacio_list = ['xUra', 'pAsa'] #rule added
+    spacio_list = ['xUra', 'pAsa','anxara', 'bAhara', 'Age', 'pICe', 'sAmane', 'Upara', 'nIce', 'xAez', 'xAyeM', 'xAeM', 'bAez', 'bAyeM', 'bAeM'] #rule added
     spacio_pointing_index = None
     timex_list = ['pahale', 'bAxa']
     timex_pointing_index = None
@@ -171,6 +171,7 @@ def process_relation(output):
             if row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in spacio_list: #rule added
                 spacio_pointing_index = get_pointing_index(output, row[0])
                 spacio_index = row[0]
+                
             elif row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in timex_list: #rule added
                 timex_pointing_index = get_pointing_index(output, row[0])
                 timex_index = row[0]
@@ -242,7 +243,8 @@ def process_relation(output):
             index = row[0]
             term = row[1]
             POS_tag = row[3]
-
+            
+            
             if dep_reln == 'nmod__adj':
                 if POS_tag == 'JJ' or POS_tag == 'NN':
                     up_dep = 'mod'
@@ -288,6 +290,7 @@ def process_relation(output):
                 if is_followed_by(output, index, 'pAsa'):
                     up_dep = 'rsm'
                     row[7] = up_dep
+                        
             elif index == spacio_pointing_index: #rule added
                 up_dep = 'rdl'
                 row[7] = up_dep
