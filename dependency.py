@@ -122,6 +122,11 @@ def process_relation(output):
         "nmod__relc":"rc"  #rule added
     }
 
+    spacio_list = ['xUra', 'pAsa'] #rule added
+    spacio_pointing_index = None
+    timex_list = ['pahale', 'bAxa']
+    timex_pointing_index = None
+
     #to fetch necessary rule info in first iteration
     words = []
     verbs = []
@@ -136,9 +141,9 @@ def process_relation(output):
     VM_2_exists = False
     pof_exists = False
     CC_count = 0
+    
 
     for row in output:
-        # print(row[1])
         if len(row) > 0:
             if row[7] == 'k2':
                 k2exists = True
@@ -160,16 +165,22 @@ def process_relation(output):
             elif row[7] == 'pof':  #rule added
                 pof_exists = True
                 pof_index = row[0]
-                # print(pof_index, "-----")
-            elif row[7] == "k1":
+            elif row[7] == 'k1': #rule added
                 k1exists = True
+
+            if row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in spacio_list: #rule added
+                spacio_pointing_index = get_pointing_index(output, row[0])
+                spacio_index = row[0]
+            elif row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in timex_list: #rule added
+                timex_pointing_index = get_pointing_index(output, row[0])
+                timex_index = row[0]
 
             if not k1exists and pof_exists: #rule added
                 prev_index = pof_index - 2
                 if prev_index >= 0 and output[prev_index][7] == "nmod__adj":
                     output[prev_index][7] = 'k1'
 
-            if k1exists and pof_exists:
+            if k1exists and pof_exists: #rule added
                 prev_index = pof_index - 2
                 if prev_index >= 0 and output[prev_index][7] == "nmod__adj":
                     output[prev_index][7] = 'k2'
@@ -277,10 +288,22 @@ def process_relation(output):
                 if is_followed_by(output, index, 'pAsa'):
                     up_dep = 'rsm'
                     row[7] = up_dep
-            elif POS_tag == 'NST' and dep_reln == 'lwg__psp': #rule added
+            elif index == spacio_pointing_index: #rule added
+                up_dep = 'rdl'
+                row[7] = up_dep
+                row[6] = spacio_index
+            elif row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in spacio_list: #rule added
                 up_dep = 'k7p'
                 row[7] = up_dep
-            
+                row[6] = head_verb_index
+            elif index == timex_pointing_index: #rule added
+                up_dep = 'rkl'
+                row[7] = up_dep
+                row[6] = timex_index
+            elif row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in timex_list: #rule added
+                up_dep = 'k7t'
+                row[7] = up_dep
+                row[6] = head_verb_index
 
     #For vmod processing
     for row in output:
@@ -317,15 +340,15 @@ def process_relation(output):
                     if is_followed_by(output, index, 'se pahale'):
                         up_dep = 'rblak'
                         row[7] = up_dep
+                    if is_followed_by(output, index, 'ke paScAw'):
+                        up_dep = 'rblpk'
+                        row[7] = up_dep
                     elif is_followed_by(output, index, 'ke bAxa'):
                         up_dep = 'rblpk'
                         row[7] = up_dep
                     elif is_followed_by(output, index, 'ke samaya'): #rule added
                         up_dep = 'rblsk'
                         row[7] = up_dep
-                    
-    # for row in output:
-    #     if row[7] == 'pof'
 
 
     #For CC and ccof processing
@@ -452,6 +475,7 @@ if __name__ == "__main__":
     hindi_format = WXC(order="wx2utf", lang="hin")
     input = read_data(CONSTANTS.INPUT_FILE)
     clean_input = clean_input_data(input)
+
     BEGIN_WRITE = True
     for sentence in clean_input:
         #generate POS - Tagger output for input sentence
@@ -462,6 +486,7 @@ if __name__ == "__main__":
         #write the intetmediate_parser_output in one file
         write_data(data, CONSTANTS.CONSOLIDATED_PARSER_OUTPUT, BEGIN_WRITE)
         format_output = parse_file(data)
+        # print(format_output)
         #process parser dependencies
         processed_relation = process_relation(format_output)
 
