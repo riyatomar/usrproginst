@@ -122,7 +122,7 @@ def process_relation(output):
         "nmod__relc":"rc"  #rule added
     }
 
-    spacio_list = ['xUra', 'pAsa','anxara', 'bAhara', 'Age', 'pICe', 'sAmane', 'Upara', 'nIce', 'xAez', 'xAyeM', 'xAeM', 'bAez', 'bAyeM', 'bAeM'] #rule added
+    spacio_list = ['xUra', 'pAsa', 'nikata', 'anxara', 'bAhara', 'Age', 'pICe', 'sAmane', 'Upara', 'nIce', 'xAez', 'xAyeM', 'xAeM', 'bAez', 'bAyeM', 'bAeM'] #rule added
     spacio_pointing_index = None
     timex_list = ['pahale', 'bAxa']
     timex_pointing_index = None
@@ -132,6 +132,7 @@ def process_relation(output):
     verbs = []
     k2exists = False
     k1exists = False
+    k1s_exists = False
     k2gexists = False
     k4exists = False
     k5exists = False
@@ -167,11 +168,13 @@ def process_relation(output):
                 pof_index = row[0]
             elif row[7] == 'k1': #rule added
                 k1exists = True
+            elif row[7] == 'k1s': #rule added
+                k1s_exists = True
 
             if row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in spacio_list: #rule added
                 spacio_pointing_index = get_pointing_index(output, row[0])
                 spacio_index = row[0]
-                
+
             elif row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in timex_list: #rule added
                 timex_pointing_index = get_pointing_index(output, row[0])
                 timex_index = row[0]
@@ -185,7 +188,11 @@ def process_relation(output):
                 prev_index = pof_index - 2
                 if prev_index >= 0 and output[prev_index][7] == "nmod__adj":
                     output[prev_index][7] = 'k2'
-
+            
+            if not k1exists and k1s_exists:
+                if row[7] == "k1s":
+                    row[7] = 'k1'
+                    
             if row[3] == 'CC':
                 CC_count = CC_count + 1
             if not CC_exists and row[3] == 'CC':
@@ -244,7 +251,6 @@ def process_relation(output):
             term = row[1]
             POS_tag = row[3]
             
-            
             if dep_reln == 'nmod__adj':
                 if POS_tag == 'JJ' or POS_tag == 'NN':
                     up_dep = 'mod'
@@ -291,19 +297,19 @@ def process_relation(output):
                     up_dep = 'rsm'
                     row[7] = up_dep
                         
-            elif index == spacio_pointing_index: #rule added
+            if index == spacio_pointing_index: #rule added
                 up_dep = 'rdl'
                 row[7] = up_dep
                 row[6] = spacio_index
-            elif row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in spacio_list: #rule added
+            if row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in spacio_list: #rule added
                 up_dep = 'k7p'
                 row[7] = up_dep
                 row[6] = head_verb_index
-            elif index == timex_pointing_index: #rule added
+            if index == timex_pointing_index: #rule added
                 up_dep = 'rkl'
                 row[7] = up_dep
                 row[6] = timex_index
-            elif row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in timex_list: #rule added
+            if row[3] == 'NST' and row[7] == 'lwg__psp' and row[1] in timex_list: #rule added
                 up_dep = 'k7t'
                 row[7] = up_dep
                 row[6] = head_verb_index
