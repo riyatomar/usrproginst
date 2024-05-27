@@ -29,16 +29,35 @@ def check_punctuation(sentence):
 
     return sentence
 
+# def remove_allpunc(sentence):
+#     punctuations = [",", "#", "(", ")", ":", ";", "-", "%", "'", '"', "’", "‘", "*", "&", "@"]
+#     for sym in punctuations:
+#         if sym in sentence:
+#             sentence = sentence.replace(sym, " ")
+#     return sentence
+
 def remove_allpunc(sentence):
-    punctuations = [",", "#", "<", ">", "(", ")", ":", ";", "-", "%", "'", '"', "’", "‘", "*", "&", "@"]
-    for sym in punctuations:
-        if sym in sentence:
-            sentence = sentence.replace(sym, " ")
-    return sentence
+    # define punctuation
+    punctuations = [",", "#", "<", ">", "(", ")", ":", ";", "-", "%", "'", '"', "’", "‘", "*", "&", "@","!"]
+    within_angle_brackets = False
+
+    result = ""
+    for char in sentence:
+        if char == "<":
+            within_angle_brackets = True
+        elif char == ">":
+            within_angle_brackets = False
+
+        if not within_angle_brackets and char in punctuations:
+            char = " "
+
+        result += char
+
+    return result
 
 def remove_starting_connectives(sentence):
     SIMPLE_CONNECTIVES = ['और', 'एवं', 'इसलिए', 'क्योंकि', 'जबकि', 'तथा', 'ताकि', 'मगर', 'लेकिन', 'किंतु', 'परंतु', 'फिर भी', 'या', 'तथापि',
-                      'नहीं तो', 'व', 'चूंकि', 'चूँकि', 'वरना', 'अन्यथा', 'बशर्तें', 'हालाँकि', 'इसीलिये', 'इसीलिए' , 'इसलिए', 'अथवा', 'अतः', 'अर्थात्', 'जब', 'तो', 'परन्तु', 'कि', 'बल्कि', 'पर']
+                      'नहीं तो', 'व', 'चूंकि', 'चूँकि', 'वरना', 'अन्यथा', 'बशर्तें', 'हालाँकि', 'इसीलिये', 'इसीलिए' , 'इसलिए', 'अथवा', 'अतः', 'अर्थात्', 'जब', 'तो', 'परन्तु', 'कि ', 'बल्कि', 'पर']
     first_word = sentence.split()[0]
     if first_word in SIMPLE_CONNECTIVES:
         sentence = " ".join(sentence.split()[1:])
