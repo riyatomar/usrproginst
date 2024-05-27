@@ -21,7 +21,7 @@ if os.path.isfile(input_file_path):
             # Check if the word is enclosed within angle brackets
             if word.startswith("<") and word.endswith(">"):
                 with open(output_file_path, "a") as out:
-                    out.write(word + "\n")
+                    out.write('^' + word.strip('<>') + "\n")
             else:
                 with open(single_concept_inp, "w") as sc:
                     sc.write(word)

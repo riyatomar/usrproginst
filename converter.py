@@ -172,7 +172,6 @@ def write_final_output(original_word,root_word,gender,number,person,tam,prune_fi
             f.write(str(i+1)+"\t"+original_word[i]+"\t"+root_word[i].strip("*")+"\t"+"unk"+"\t"+"unk"+"\t"+"unk"+"\t"+"unk"+"\n")
 
 if __name__=="__main__":
-    #Open the parser output file and extract info of pos tag 
     parser_file="txt_files/parser-output.txt"
     prune_file="txt_files/prune-output.txt"
     morph_file="txt_files/morph-output.txt"
