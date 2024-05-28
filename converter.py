@@ -167,11 +167,12 @@ def write_final_output(original_word,root_word,gender,number,person,tam,prune_fi
     f=open(prune_file,"w")
     for i in range(len(original_word)):
         try:
-            f.write(str(i+1)+"\t"+original_word[i]+"\t"+root_word[i].strip("*")+"\t"+gender[i].split(":")[1]+"\t"+number[i].split(":")[1]+"\t"+person[i].split(":")[1]+"\t"+tam[i].split(":")[1]+"\n")
+            f.write(str(i+1)+","+original_word[i]+","+root_word[i].strip("*")+","+gender[i].split(":")[1]+","+number[i].split(":")[1]+","+person[i].split(":")[1]+","+tam[i].split(":")[1]+"\n")
         except:
-            f.write(str(i+1)+"\t"+original_word[i]+"\t"+root_word[i].strip("*")+"\t"+"unk"+"\t"+"unk"+"\t"+"unk"+"\t"+"unk"+"\n")
+            f.write(str(i+1)+","+original_word[i]+","+root_word[i].strip("*")+","+"unk"+","+"unk"+","+"unk"+","+"unk"+"\n")
 
 if __name__=="__main__":
+    #Open the parser output file and extract info of pos tag 
     parser_file="txt_files/parser-output.txt"
     prune_file="txt_files/prune-output.txt"
     morph_file="txt_files/morph-output.txt"
