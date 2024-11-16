@@ -58,8 +58,11 @@ def tam_rules(word,word_index,pof_check):
     temp_word_index=temp_word_index_iter=word_index+1
     temp_pos_tag=0
     vaux_count=0
+    # print(temp_word_index)
+    # print(infoListFinal[temp_word_index-1][1])
     while(infoListFinal[temp_word_index-1][1]=="VAUX"):
         vaux_count=vaux_count+1
+        # print('vaux count-->', vaux_count)
         temp_word_index=temp_word_index+1
     # print(word)
     # print(rootWordDict)
@@ -79,9 +82,13 @@ def tam_rules(word,word_index,pof_check):
             final_word=root_word+"_1-"+suffixDictionary[word]
     elif(vaux_count==1):
         word_index_in=temp_word_index_iter
+        # print(word_index_in)
         vaux_word=wxOutputList[word_index_in-1]
         root_word=get_root_word(word, rootWordDictReverse)
+        # print('root_word-->', root_word)
         vaux_root=get_root_word(vaux_word, rootWordDictReverse)
+        # print('vaux_root-->', vaux_root)
+
         if(vaux_root=="jA" and suffixDictionary[word]=="yA"):
             final_word=root_word+"_1-"+suffixDictionary[word]+"_"+vaux_root+"_"+suffixDictionary[vaux_word]
         elif(vaux_root in ranjak_list):
@@ -108,6 +115,7 @@ def tam_rules(word,word_index,pof_check):
             temp_word_index_in=word_index_in
             while(infoListFinal[temp_word_index_in][1]=="VAUX"):
                 temp_vaux=wxOutputList[temp_word_index_in]
+                # print(temp_vaux)
                 final_word=final_word+"_"+temp_vaux
                 temp_word_index_in=temp_word_index_in+1
         else:
@@ -264,21 +272,25 @@ def pronouns_n_qnwords_to_replace(concept_list):
     category_3=["Ji"]
     category_4=["vaha","yaha"]
     category_5=["kyA","kOna","kaba","kahAz","kEse","kisase","kEsA","kyoM","kisane","kisako","kisaki","kiwanA","kiwanI","kisaliye"]
+    category_6=['jo', 'jahAZ', 'jisa', 'jaba', 'jina', 'jiwanA', 'jisakA', 'jisake']
     for index in range(len(concept_list_temp)):
         word=concept_list_temp[index]
+        # print(word)
         if "+" in word:
             continue
         else:
             if word in category_1:
-                concept_list_temp[index]="addressee"
+                concept_list_temp[index]="$addressee"
             elif word in category_2:
-                concept_list_temp[index]="speaker"
+                concept_list_temp[index]="$speaker"
             elif word in category_3:
-                concept_list_temp[index]="respect"
+                concept_list_temp[index]="$respect"
             elif word in category_4:
-                concept_list_temp[index]="wyax"
-            elif word in category_5:
-                concept_list_temp[index]="kim"
+                concept_list_temp[index]="$wyax"
+            elif word.strip('_1') in category_5:
+                concept_list_temp[index]="$kim"
+            elif word.strip('_1') in category_6:
+                concept_list_temp[index]="$yax"
             else:
                 continue
     return concept_list_temp
@@ -291,7 +303,7 @@ def for_handling_prpc(word,word_index, rootWordDictReverse, infoListFinal, wxWor
     if pos_tag=="PRP":
         word_index=line[0]
         temp=wxWordsDictinary[word_index]
-        #print("temp",temp)
+        # print("temp",temp)
         already_visited[temp]=1
         final_word=rootWordDictReverse[word]+"+"+rootWordDictReverse[temp]
     else:
@@ -317,9 +329,11 @@ def function1(concept_list):
 
 def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary):
     ranjak_list= ["cala", "dAla", "cuka", "xe", "le", "bETa", "uTa", "jA", "padZa", "A"]
+    plus_words = ['sAWa']
     pof_check={}
     counter=0
     temp_use={}
+    ele_remove=''
     # print(pof_check)
     # print(wxOutputList)
     for i in range(len(wxOutputList)):
@@ -334,33 +348,14 @@ def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary)
         # print(word,pos_tag)
         if pos_tag=="PSP"  or pos_tag=="SYM" or pos_tag=="CC" or pos_tag=="RP":
             continue
-        elif pos_tag=="VM" and word_info in ["main", "vmod", "ccof", "nmod__relc"]: #Do not add suffix for these words because we have to do TAM search on them and it creates a problem later.
+        
+        if pos_tag == "NST" and wxWordsDictinary[word_index] in ('ora', 'sAWa') and wxWordsDictinary[word_index-1] in ('kI', 'kA', 'ke'):
+            continue
+                
+        elif pos_tag=="VM" and word_info in ["main", "ccof", "rc"]: #Do not add suffix for these words because we have to do TAM search on them and it creates a problem later.
             # print(word)
             final_word=tam_rules(word,word_index,pof_check)
 
-            
-            # vector_8th=get_8th_vector(word, suffixDictionary) 
-            # if word in VM_already_visited:
-                
-            #     root_word=VM_already_visited[word]
-            #     concept_list.remove(root_word)
-
-            #     final_word=root_word+"-"
-            # else:
-            #     final_word=root_word+"_1"+"-"
-            
-            
-            # for line in infoListFinal[word_index:-1]: #updated simply vaux to vaux root
-            #     pos_tag=line[1]
-            #     if pos_tag=="VAUX":
-            #         word_index=line[0]
-            #         temp=wxWordsDictinary[word_index]
-            #         #temp_root=root_word_dict_reverse[temp]
-            #         final_word=final_word+"_"+temp
-            #         already_visited[temp]=1
-            #     else:
-            #         break
-            
             VM_already_visited[word]=final_word #adding to the dictionary
             #sprint("this is final word:",final_word)
             pof_check[word]=final_word
@@ -378,7 +373,7 @@ def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary)
             pof_check[word]=final_word
             # print(concept_list)
         elif pos_tag=="PRPC":
-            final_word=for_handling_prpc(word,word_index)
+            final_word = for_handling_prpc(word, word_index, rootWordDictReverse, infoListFinal, wxWordsDictinary)
             concept_list.append(final_word)
             pof_check[word]=final_word
         else:
@@ -387,52 +382,55 @@ def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary)
             root_word=get_root_word(word, rootWordDictReverse)
             
             if pos_tag=="PRP" or pos_tag=="DEM" or pos_tag=="NNP" or pos_tag=="QC":
+                key_to_check = wxWordsDictinary[word_index]
+                if key_to_check in already_visited:
+                    ele_remove=rootWordDictReverse[key_to_check]
                 concept_list.append(root_word)
+                if ele_remove is not None and ele_remove in concept_list:
+                    concept_list.remove(ele_remove)
                 pof_check[word]=root_word
             else:
+                                       
                 if(word_index not in already_visited):
+                    # print(already_visited)
                     store_t=root_word+"_1"
                     with open('txt_files/measuring_units.txt','r') as file:
                         units=file.read()
-                        units_list=units.split(",")
+                        units_list=units.split("\n")
                     if root_word in units_list:
                         if concept_list[-1].isdigit():
                             concept_list[-1]=concept_list[-1]+"+"+store_t
                     else:
                         concept_list.append(store_t)
                         pof_check[word]=store_t
-            # concept_list = function1(concept_list)
-        # measuring_check()
-        # print(concept_list)
 
+                if root_word.strip() in plus_words:
+                    store_t = root_word + "_1"
+                    store_t_index = concept_list.index(store_t)
+                    print(store_t_index)
+                    if store_t_index > 0:  
+                        concept_list.append(concept_list[store_t_index - 1]+'+'+store_t)
+                        # print(concept_list)
+                        concept_list.remove(concept_list[store_t_index - 1])
+                        concept_list.remove(store_t)
+                        # print(concept_list)
+                if root_word.endswith('nA') and pos_tag == 'VM':
+                    root_to_remove = root_word + '_1'
+                    updated_root_word = root_word[:-2]
+                    matching_element = next((elem for elem in concept_list if root_to_remove in elem), None)
+                    # print(matching_element)
+                    if '+' in matching_element:
+                        verbalizer = matching_element.split('+')[1]
+                        kriyAmUla = matching_element.split('+')[0]
+                        concept_list.remove(kriyAmUla + '+' + verbalizer)
+                        concept_list.append(kriyAmUla + '+' + updated_root_word + '_1')
+                    else:
+                        concept_list.remove(root_to_remove)
+                        concept_list.append(updated_root_word + '_1')    
         counter+=1
         
-    print(concept_list)
-    function1(concept_list)
 
     return concept_list
-
-
-# if __name__=="__main__":
-        
-#         wxOutputList=get_wx_output_list()
-#         parserOutputList=get_parser_output_list()
-#         wxWordsDictinary=get_wx_words_dictionary()
-#         wxWordsDictionaryNew=get_wx_words_dictionary_new()
-#         infoListFinal=get_info_list_final(parserOutputList)
-#         rootWordDict=get_root_word_dict(pruneOutputList)
-#         rootWordDictReverse=get_root_word_dict_reverse(pruneOutputList)
-#         tamDictionaryList=get_TAM_dictionary_list()
-#         suffixDictionary=get_suffix_dictionary()
-#         personDictionary=get_person_dictionary()
-
-#         row_2=get_row2(wxOutputList, wxWordsDictionaryNew, infoListFinal, wxWordsDictinary)
-#         function1(concept_list)
-#         row_2_temp=row_2.copy()
-#         row_2_chg=pronouns_n_qnwords_to_replace(row_2_temp)
-
-#         print(",".join(row_2_temp))
-
        
 if __name__=="__main__":
         
@@ -448,6 +446,7 @@ if __name__=="__main__":
         personDictionary=get_person_dictionary()
 
         row_2=get_row2(wxOutputList, wxWordsDictionaryNew, infoListFinal, wxWordsDictinary)
+        
         function1(row_2)  # Call function1 with row_2
         row_2_temp=row_2.copy()
         row_2_chg=pronouns_n_qnwords_to_replace(row_2_temp)
