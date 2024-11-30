@@ -1,0 +1,8 @@
+^usako/vaha<cat:p><case:o><parsarg:ko><gen:m><num:s><per:a>/vaha<cat:p><case:o><parsarg:ko><gen:f><num:s><per:a>$
+^acCA/acCA<cat:adj><case:d><gen:m><num:s>/acCA<cat:n><case:d><gen:m><num:s>$
+^nambara/*nambara$
+^BI/*BI$
+^mila/mila<cat:v><gen:m><num:p><per:m_h><tam:0>/mila<cat:v><gen:f><num:p><per:m_h><tam:0>/mila<cat:v><gen:f><num:p><per:m><tam:0>/mila<cat:v><gen:f><num:p><per:u><tam:0>/mila<cat:v><gen:f><num:p><per:a><tam:0>/mila<cat:v><gen:f><num:s><per:m_h0><tam:imper>/mila<cat:v><gen:f><num:s><per:m_h><tam:0>/mila<cat:v><gen:f><num:s><per:m><tam:0>/mila<cat:v><gen:f><num:s><per:u><tam:0>/mila<cat:v><gen:f><num:s><per:a><tam:0>/mila<cat:n><case:d><gen:f><num:s>/mila<cat:v><gen:m><num:p><per:m><tam:0>/mila<cat:v><gen:m><num:p><per:u><tam:0>/mila<cat:v><gen:m><num:p><per:a><tam:0>/mila<cat:v><gen:m><num:s><per:m_h0><tam:imper>/mila<cat:v><gen:m><num:s><per:m_h><tam:0>/mila<cat:v><gen:m><num:s><per:m><tam:0>/mila<cat:v><gen:m><num:s><per:u><tam:0>/mila<cat:v><gen:m><num:s><per:a><tam:0>/mila<cat:n><case:o><gen:f><num:s>$
+^jAwA/jA<cat:v><gen:m><num:s><per:a><tam:wA>/jA<cat:v><gen:m><num:s><per:u><tam:wA>/jA<cat:v><gen:m><num:s><per:m><tam:wA>/jA<cat:v><gen:m><num:s><per:m_h><tam:wA>$
+^hE/hE<cat:v><gen:m><num:s><per:a><tam:hE>/hE<cat:v><gen:m><num:s><per:m><tam:hE>/hE<cat:v><gen:f><num:s><per:a><tam:hE>/hE<cat:v><gen:f><num:s><per:m><tam:hE>/ho<cat:v><gen:f><num:s><per:a><tam:hE>$
+.

@@ -1,0 +1,7 @@
+1	usako	vaha	m	s	a	unk
+2	acCA	acCA	m	s	unk	unk
+3	nambara	nambara	unk	unk	unk	unk
+4	BI	BI	unk	unk	unk	unk
+5	mila	mila	m	p	m_h	0
+6	jAwA	jA	m	s	a	wA
+7	hE	hE	m	s	a	hE

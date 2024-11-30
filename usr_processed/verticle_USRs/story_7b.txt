@@ -1,0 +1,6 @@
+#और उसको अच्छा नम्बर भी मिल जाता है।
+$wyax	1	-	-	4:k4	-	distal	-
+acCA_1	2	-	-	3:mod	-	-	-
+nambara_1	3	-	-	4:k1	-	BI	-
+mila_1-wA_hE_1	4	-	-	0:main	story_7a.5:samuccaya	[shade:jA_1]	-
+%affirmative
