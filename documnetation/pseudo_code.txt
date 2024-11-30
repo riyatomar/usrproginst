@@ -1,0 +1,136 @@
+1. CONCEPT ROW: 
+
+#PSEUDO CODE FOR CONCEPT ROW:
+FUNCTION process_concept_row(WX[word], tagger[pos], parser[dependency], morph[lemma], morph[TAM], parser[head_index]):
+    FOR EACH word IN WX[word]:
+        -Get the WX[word] of the word from wx_output
+        -Get the parser[dependency] and parser[head_index] from the parser_output 
+        -Get the tagger[POS] of the word from the tagger_output
+        -Get the morph[lemma] and morph[TAM] of the word from the morphological_analysis
+
+        IF tagger[pos] is "PSP", "SYM", "CC", or "RP":
+            -Continue to the next word
+
+        IF tagger[pos] is "VM" and the parser[dependency] is "main":
+            -Extract the morph[lemma] and morph[TAM] information from morphological_analysis
+            -Process the morph[TAM] using TAM_rules() to obtain the final TAM form
+            -Append the morph[lemma] and morph[TAM] form joined with a hyphen to each other
+
+        IF tagger[pos] is "NNC" and the parser[dependency] is "pof":
+            -Process the word using for_handling_nnc_tag_or_pof(), considering its morph[lemma], parser[dependency], and parser[head_index] from parser_output
+            -Append the processed concept to the concept_list
+
+        IF tagger[pos] is "PRPC":
+            -Process the word using for_handling_prpc(), considering its parser[index], morph[lemma], and the corresponding WX[word]
+            -Append the processed concept to the concept_list
+
+        IF tagger[pos] is "PRP", "DEM", "NNP", or "QC":
+            -Append the morph[lemma] of the word to the concept_list
+        
+    
+    FOR EACH concept IN concept_list:
+        -Append "_1" as suffix to each concept
+
+    RETURN concept_list
+
+Explaination:
+Function that takes as input a list of words representing concepts converted from WX format sentences and Iterate through each word in the list.
+
+ -->For each word, access its part of speech (POS) tag from the tagger output. If the POS tag is "PSP", "SYM", "CC", or "RP", skip to the next word.
+ -->If the POS tag is "VM" and the word's dependency in the parser output is "main":
+    a. Extract the lemma (base form) of the word from the morphological analysis (morph) and store it.
+    b. Extract the TAM (tense-aspect-mood) information of the word from the morphological analysis and process it using TAM_rules() to obtain the final TAM form.
+    c. Append the lemma and TAM form to the concept_list joined with hyphen (-)
+ -->If the POS tag is "NNC" and the word's dependency in the parser output is "pof":
+    a. Process the word using the function for_handling_nnc_tag_or_pof(), considering its lemma, dependency, and head index from the parser output.
+    b. Append the processed concept to the concept_list.
+ -->If the POS tag is "PRPC":
+    a. Process the word using the function for_handling_prpc(), considering its index from the parser output, lemma from the morphological analysis, and the corresponding WX word.
+    b. Append the processed concept to the concept_list.
+ -->If the POS tag is "PRP", "DEM", "NNP", or "QC":
+    a. Append the lemma of the word from the morphological analysis to the concept_list.
+
+    Return the concept_list containing the processed concepts and append "_1" as suffix in each concept
+
+============================================================
+
+2. INDEX ROW: 
+
+#PSEUDO CODE FOR INDEX ROW:
+FUNCTION create_index_row(concept_list):
+    -Initialize index_row as an empty list
+    -Initialize index_counter to 1
+
+    FOR EACH concept IN concept_list:
+        -Append the current value of index_counter to index_row
+        -Increment index_counter by 1
+
+    RETURN index_row
+
+Explaination: 
+Function that takes the concept_list as input
+ -->It iterates through the  number of concept in concept_list and creates a sequential index for each concept in the list and displaying them in index row
+
+============================================================
+
+3. SEMANTIC CATEGORY ROW: 
+
+#PSEUDO CODE FOR SEMANTIC CATEGORY ROW:
+FUNCTION add_semantic_category(concept_list, NER, morph[gender]):
+    Initialize semantic_category_row as an empty list
+
+    FOR EACH concept IN concept_list:
+        -Set semantic_category as an empty string
+
+        IF Named Entity Recognition (NER) model identifies a named entity in the concept:
+            -Append the identified named entity to semantic_category 
+
+        IF Morphological analysis provides morph[gender] associated with the concept:
+            -Extract gender information from the morphological analysis
+            -Append the gender information to semantic_category
+
+        ELSE:
+            Append an empty string to semantic_category
+
+        Append semantic_category to semantic_category_row
+
+    RETURN semantic_category_row
+
+Explaination:
+Function that takes the concept_list, NER and morphological_analysis as input and iterates through each concept.
+  -->For each concept:
+    It utilizes a Named Entity Recognition (NER) model to identify any named entities present.
+    It also considers morphological information such as gender associated with each concept.
+ -->If a named entity is identified or morphological information such as gender is available for the concept:
+    Append that information on the respective index of concept 
+
+============================================================
+
+4. MORPHO SEMANTIC ROW:
+
+#PSEUDO CODE FOR MORPHO SEMANTIC ROW:
+FUNCTION add_morpho_semantic(concept_list, morph[number]):
+    Initialize morpho_semantic_row as an empty list
+
+    FOR EACH concept IN concept_list:
+        -Set morpho_semantic as an empty string
+
+        IF Morphological analysis provides morph[number] associated with the concept:
+            -Extract number information from the morphological analysis
+                IF morph[number] is "p":
+                    -Append the "pl" to the morpho_semantic
+                Else:
+                    -Append an empty string to morpho_semantic
+
+        ELSE:
+            Append an empty string to morpho_semantic
+
+        Append morpho_semantic to morpho_semantic_row
+
+    RETURN morpho_semantic_row
+
+Explaination:
+Function that takes the concept_list and morphological_analysis as input and iterates through each concept.
+  -->For each concept:
+    It considers morphological information such as number associated with each concept.
+        -if number is "p", it appends "pl" to the list otherwise it returns empty string

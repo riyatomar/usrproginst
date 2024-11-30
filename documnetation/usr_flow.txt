@@ -1,0 +1,96 @@
+1. Define the function word_search_from_end(search_word, rootWordDict, tamDictionaryList):
+   a. If the search_word ends with "_1", remove it and use the rootWordDict to find the corresponding root word.
+   b. Initialize an empty list match_key_list and an empty dictionary matched_tams.
+   c. Iterate through each line in tamDictionaryList:
+      i. Iterate through each value in the line:
+         - If the search_word ends with the current value and the value is not empty:
+         - Set key as the current value.
+         - Calculate the length of the first element in the line and store it in line0_length.
+         - If key is not in matched_tams, add it to matched_tams with the corresponding line's first element as the value.
+           - Otherwise, if the length of the current line's first element is greater than the length of the value in matched_tams, update it.
+   d. Find the key with the longest length in matched_tams and store its value in key_tam.
+   e. Return key_tam.
+
+2. Define the function search_tam_row2(concept_list, rootWordDict, rootWordDictReverse, suffixDictionary):
+   a. Define a list ranjak_list containing certain values.
+   b. Identify the verb groups using the identify_vb() function and store the result in tam_list_row2.
+   c. Iterate through each concept_with_hyphen in tam_list_row2:
+      i. If the concept_with_hyphen ends with an empty string after the hyphen:
+         - Set real_tam_temp as "0".
+         - Extract the root_concept from concept_with_hyphen.
+         - If the root_concept contains "+", extract the word after "+" as search_word.
+         - If the root_concept contains "_1", remove it.
+         - Use rootWordDict to find the corresponding root word for search_word.
+         - Call the word_search_from_end() function with search_word, rootWordDict, and tamDictionaryList to find the TAM suffix.
+         - If a TAM suffix is found, concatenate it with the root_concept and store it in final_concept.
+         - Otherwise, set final_concept as root_concept.
+      ii. If the concept_with_hyphen ends with a non-empty string after the hyphen:
+         - Extract the root_concept and real_tam_temp from concept_with_hyphen.
+         - If root_concept contains "+", extract the word after "+" as wx_word_for_root_concept.
+         - Use rootWordDict to find the corresponding root word for wx_word_for_root_concept.
+         - Split real_tam_temp into components and process them.
+         - Search for the TAM suffix using the word_search_from_end() function with the processed TAM string.
+         - If a TAM suffix is found, concatenate it with the root_concept and store it in final_concept.
+         - Otherwise, set final_concept as root_concept.
+      iii. Replace concept_with_hyphen in concept_list with final_concept.
+   d. Return concept_list.
+
+3. Define the function pronouns_n_qnwords_to_replace(concept_list):
+   a. Define lists category_1, category_2, category_3, category_4, and category_5 containing certain values.
+      - category_1=["wuma","wumhArA","wumako","wuJe","wU","wuJako","Apa"]
+      - category_2=["mEM","hama","hamArA","hamako","hameM","muJe","muJako"]
+      - category_3=["Ji"]
+      - category_4=["vaha","yaha"]
+      - category_5=["kyA","kOna","kaba","kahAz","kEse","kisase","kEsA","kyoM","kisane","kisako","kisaki","kiwanA","kiwanI","kisaliye"]
+   b. Iterate through each word in concept_list:
+      i. If the word is in category_1, replace it with "addressee".
+      ii. If the word is in category_2, replace it with "speaker".
+      iii. If the word is in category_3, replace it with "respect".
+      iv. If the word is in category_4, replace it with "wyax".
+      v. If the word is in category_5, replace it with "kim".
+   c. Return the modified concept_list.
+
+4. Define the function for_handling_prpc(word, word_index, rootWordDictReverse, infoListFinal, wxWordsDictinary):
+   a. Extract the line information for the given word_index from infoListFinal.
+   b. If the part of speech(pos) tag is "PRP":
+      i. Extract the word's corresponding index from wxWordsDictinary.
+      ii. Set already_visited[temp] as 1.
+      iii. Concatenate the root word with the corresponding word from wxWordsDictinary and store it in final_word.
+   c. Return final_word.
+--> morph[lemma], wx[wx_word], parser[index], tagger[pos]
+
+
+5. Define the function get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary):
+   a. Iterate through each word in wxOutputList with its index:
+      i. Extract the corresponding line information from infoListFinal.
+      ii. Process each word based on its part of speech tag:
+         - If the tag is "PSP", "SYM", "CC", or "RP", continue to the next word.
+         - If the tag is "VM" and the word_info is "main", process the main verbs.
+         - If the tag is "VAUX", check if the word has been visited before, and if not, add it.
+         - If the tag is "NNC" or word_info is "pof", handle nouns and postpositions.
+         - If the tag is "PRPC", handle pronouns.
+         - Otherwise, handle other cases like pronouns, determiners, proper nouns, etc.
+   b. Return the modified concept_list.
+
+6. In the main block:
+   a. Initialize required variables and data structures.
+   b. Call the get_row2() function with the necessary parameters to get the modified row_2.
+   c. Print the modified row_2.
+=========================================================================
+1. concept row takes the input from WX converted sentence list for concepts and iterate through each word
+    checks the pos of each concepts from tagger[pos]
+    if tagger[pos]=="PSP"  or tagger[pos]=="SYM" or tagger[pos]=="CC" or tagger[pos]=="RP":
+    then continue
+    elif 
+    if tagger[pos]=="VM" and parser[dependency]=="main":
+    then extract morph[lemma] for concept
+    and also its morph[tam] for tam processing using tam_rules() and append to concept_list
+    elif 
+    if tagger[pos]=="NNC" and parser[dependency]=="pof":
+    then using for_handling_nnc_tag_or_pof(), and these morph[lemma], parser[dependency], parser[head_index] it will be processed and appended to concept_list
+    elif 
+    if tagger[pos]=="PRPC" 
+    then after its procesing using for_handling_prpc(), and these parser[index], morph[lemma], wx[wx_word] its value will also be appended in concept_list
+    elif 
+    if tagger[pos]=="PRP" or tagger[pos]=="DEM" or tagger[pos]=="NNP" or tagger[pos]=="QC":
+    then append their morph[lemma] to the concept_list
