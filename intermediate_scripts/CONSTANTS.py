@@ -1,5 +1,0 @@
-INPUT_FILE = "txt_files/bh-1"
-INTERMEDIATE_PARSER_INPUT = "txt_files/inter_parser_input.txt"
-INTERMEDIATE_PARSER_OUTPUT = "txt_files/inter_parser_output.txt"
-CONSOLIDATED_PARSER_OUTPUT = "txt_files/consolidated_parser_output.txt"
-PROCESSED_PARSER_OUTPUT_FILE = "txt_files/parser-output.txt"
