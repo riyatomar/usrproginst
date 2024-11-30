@@ -1,0 +1,1 @@
+intermediate_scripts/isc_tagger/embeddings/*.vec filter=lfs diff=lfs merge=lfs -text
