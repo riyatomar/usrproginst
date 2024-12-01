@@ -62,7 +62,7 @@ def get_row8(row_2, wxOutputList, wxWordsDictionary,
                     # complete_info[rp_rel_word_index]+= " " + rp_root_word
                     rp_existing_value = complete_info[rp_rel_word_index]
                     if rp_existing_value:
-                        complete_info[rp_rel_word_index] += " " + rp_root_word
+                        complete_info[rp_rel_word_index] += "/" + rp_root_word
                     
                     else:
                         complete_info[rp_rel_word_index] = rp_root_word
