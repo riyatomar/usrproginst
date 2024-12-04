@@ -46,7 +46,7 @@ try:
         with open(output_file_path, 'w', encoding='utf-8') as output_file:
             output_file.write(extracted_text)
 
-    print(f"{i+1} sections segregated and saved into the output folder.")
+    # print(f"{i+1} sections segregated and saved into the output folder.")
 
 except Exception as e:
     print(f"Error occurred: {e}")

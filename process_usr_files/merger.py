@@ -14,8 +14,8 @@ with open(output_file_name, 'a', encoding="utf-8") as wf:
 
         wf.write(read + "\n" * 4)  # Insert four newlines after each file's content
         
-print("--------------------")
-print("Files have been merged.")
+# print("--------------------")
+# print("Files have been merged.")
 
 
 

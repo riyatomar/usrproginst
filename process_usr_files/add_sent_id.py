@@ -49,5 +49,5 @@ with open(input_file_path, 'r', encoding="utf-8") as input_file, open(output_fil
         else:
             output_file.write(line) # Write the line to the output file
 
-print("--------------------")
-print("sent_id added to USRs.")
+# print("--------------------")
+# print("sent_id added to USRs.")
