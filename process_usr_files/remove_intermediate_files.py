@@ -37,5 +37,5 @@ def delete_multiple_folders(folder_paths):
         # print(f"Cleaning folder: {folder_path}")
         delete_folder_contents(folder_path)
 
-folders_to_clean = ["usr_processed/", "txt_files/bulk_USRs_mod"]
+folders_to_clean = ["usr_processed/", "txt_files/bulk_USRs_mod", "txt_files/bulk_USRs"]
 delete_multiple_folders(folders_to_clean)
