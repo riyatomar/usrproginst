@@ -9,7 +9,7 @@ commands = [
     "python3 process_usr_files/add_sent_id.py usr_processed/merged_USR usr_processed/tagged_USRs",
     "python3 process_usr_files/vertical_usr_segregator.py usr_processed/tagged_USRs usr_processed/vertical_segregated",
     "python3 complete_cnx.py",
-    "python3 process_usr_files/merger.py usr_processed/final_outputs usr_processed/usr_file.txt",
+    "python3 process_usr_files/merge_without_id.py usr_processed/final_outputs usr_processed/usr_file.txt",
     "python3 process_usr_files/remove_txt.py",
     "python3 process_usr_files/remove_intermediate_files.py"
 ]
