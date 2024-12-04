@@ -312,7 +312,7 @@ def for_handling_prpc(word,word_index, rootWordDictReverse, infoListFinal, wxWor
 
 def function1(concept_list):
     tam_details=[]
-    with open("/home/lc4eu/LC/usrproginst/dictionaries/tam_dict.tsv","r") as tam_details_dict:
+    with open("dictionaries/tam_dict.tsv","r") as tam_details_dict:
         tam_details=tam_details_dict.read().split("\n")
         # print(tam_details)
     for k in range(0,len(concept_list)):

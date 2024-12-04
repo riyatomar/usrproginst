@@ -172,7 +172,7 @@ infoListFinal=get_info_list_final(parserOutputList)
 #====================================================================
 
 def get_TAM_dictionary_list():
-    f=open("/home/lc4eu/LC/usrproginst/dictionaries/TAM-num-per-details.tsv.wx","r")
+    f=open("dictionaries/TAM-num-per-details.tsv.wx","r")
     TAM_dictionary_list=[]
     data=f.readlines()
     for line in data:
