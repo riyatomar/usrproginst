@@ -24,15 +24,15 @@ def process_text_file(input_file, output_file):
         with open(output_file, 'w') as file:
             file.writelines(processed_lines)
 
-        print(f"Processing complete. Output written to '{output_file}'.")
+        # print(f"Processing complete. Output written to '{output_file}'.")
     except FileNotFoundError:
         print(f"Error: The file '{input_file}' does not exist.")
     except Exception as e:
         print(f"An error occurred: {e}")
 
 # Specify the input and output file names
-input_filename = '/home/lc4eu/LC/usrproginst/usr_processed/usr_file.txt'  # Replace with your input file name
-output_filename = '/home/lc4eu/LC/usrproginst/txt_files/final_usr_file.txt'  # Replace with your desired output file name
+input_filename = 'usr_processed/usr_file.txt'  # Replace with your input file name
+output_filename = 'txt_files/final_usr_file.txt'  # Replace with your desired output file name
 
 # Call the function to process the file
 process_text_file(input_filename, output_filename)
