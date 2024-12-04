@@ -1,6 +1,0 @@
-#राम पढाई में अच्छा है।
-rAma	1	per	-	4:k1	-	-	-
-paDA_1	2	-	-	4:k7	-	-	-
-acCA_1	3	-	-	4:mod	-	-	-
-hE_1-pres	4	-	-	0:main	-	-	-
-%affirmative

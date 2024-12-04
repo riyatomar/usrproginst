@@ -1,9 +1,0 @@
-<sent_id=story_1.txt>
-#राम एक अच्छा लडका है।
-rAma	1	per	-	5:k1	-	-	-
-eka_1	2	-	-	4:card	-	-	-
-acCA_1	3	-	-	4:mod	-	-	-
-ladakA_1	4	-	-	5:k1s	-	-	-
-hE_1-pres	5	-	-	0:main	-	-	-
-%affirmative
-</sent_id>
