@@ -1,18 +1,18 @@
 import os
 
-
+path = '/home/riya/usrproginst/modules/'
 scripts=[
-    "/home/lc4eu/LC/usrproginst/modules/main_sent.py",
-    "/home/lc4eu/LC/usrproginst/modules/concept_row_mod.py",
-    "/home/lc4eu/LC/usrproginst/modules/indexing_module.py", 
-    "/home/lc4eu/LC/usrproginst/modules/sem_cat_module.py",
-    "/home/lc4eu/LC/usrproginst/modules/morpho_sem_module.py", 
-    "/home/lc4eu/LC/usrproginst/modules/dependency_module.py",
-    "/home/lc4eu/LC/usrproginst/modules/discourse_module.py",
-    "/home/lc4eu/LC/usrproginst/modules/spk_view_module.py", 
-    "/home/lc4eu/LC/usrproginst/modules/scope_module.py",
-    "/home/lc4eu/LC/usrproginst/modules/sent_type_module.py",
-    "/home/lc4eu/LC/usrproginst/modules/construction_module.py"
+    f"{path}main_sent.py",
+    f"{path}concept_row_mod.py",
+    f"{path}indexing_module.py", 
+    f"{path}sem_cat_module.py",
+    f"{path}morpho_sem_module.py", 
+    f"{path}dependency_module.py",
+    f"{path}discourse_module.py",
+    f"{path}spk_view_module.py", 
+    f"{path}scope_module.py",
+    f"{path}sent_type_module.py",
+    f"{path}construction_module.py"
 ]
 
 def run_script(script_name):
