@@ -314,6 +314,7 @@
 import os
 import re
 import glob
+from modules.set_path import PATH
 
 def process_text(text):
     lines = text.strip().split('\n')
@@ -460,6 +461,6 @@ def process_files(input_folder, output_folder):
                 else:
                     outfile.write(line + '\n')
 
-input_folder = 'usr_processed/comp_outputs'
-output_folder = 'usr_processed/final_outputs'
+input_folder = f'{PATH}usr_processed/comp_outputs'
+output_folder = f'{PATH}usr_processed/final_outputs'
 process_files(input_folder, output_folder)

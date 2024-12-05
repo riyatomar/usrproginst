@@ -1,4 +1,7 @@
-# Define the function to process the file
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from modules.set_path import PATH
+
 def process_text_file(input_file, output_file):
     try:
         # Open the input file for reading
@@ -31,8 +34,8 @@ def process_text_file(input_file, output_file):
         print(f"An error occurred: {e}")
 
 # Specify the input and output file names
-input_filename = 'usr_processed/usr_file.txt'  # Replace with your input file name
-output_filename = 'txt_files/final_usr_file.txt'  # Replace with your desired output file name
+input_filename = f'{PATH}usr_processed/usr_file.txt'  # Replace with your input file name
+output_filename = f'{PATH}txt_files/final_usr_file.txt'  # Replace with your desired output file name
 
 # Call the function to process the file
 process_text_file(input_filename, output_filename)

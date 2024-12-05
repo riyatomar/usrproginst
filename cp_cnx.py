@@ -1,4 +1,5 @@
 import os
+from modules.set_path import PATH
 
 def extract_highest_index(lines):
     highest_index = -1  # Initialize to -1 to handle cases where no valid index is found
@@ -75,8 +76,6 @@ def process_files_in_folder(input_folder, output_folder):
         except Exception as e:
             print(f"Skipping file {filename} due to an error: {e}")
 
-input_folder = 'usr_processed/vertical_segregated'
-output_folder = 'usr_processed/cp_outputs'
-# input_folder = '/home/riya/project_usr/input'
-# output_folder = '/home/riya/project_usr/output'
+input_folder = f'{PATH}usr_processed/vertical_segregated'
+output_folder = f'{PATH}usr_processed/cp_outputs'
 process_files_in_folder(input_folder, output_folder)
