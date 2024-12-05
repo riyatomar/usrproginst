@@ -1,4 +1,5 @@
 from usr_func import *
+from set_path import PATH
 
 def word_search_from_end(search_word, rootWordDict, tamDictionaryList):
     # print(search_word)
@@ -312,7 +313,7 @@ def for_handling_prpc(word,word_index, rootWordDictReverse, infoListFinal, wxWor
 
 def function1(concept_list):
     tam_details=[]
-    with open("dictionaries/tam_dict.tsv","r") as tam_details_dict:
+    with open(f"{PATH}dictionaries/tam_dict.tsv","r") as tam_details_dict:
         tam_details=tam_details_dict.read().split("\n")
         # print(tam_details)
     for k in range(0,len(concept_list)):
@@ -344,6 +345,7 @@ def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary)
                 pos_tag=line[1]
                 class_index=int(line[2])
                 word_info=line[3]
+                # print(infoListFinal)
         #main condition check begins here:
         # print(word,pos_tag)
         if pos_tag=="PSP"  or pos_tag=="SYM" or pos_tag=="CC" or pos_tag=="RP":
@@ -351,7 +353,7 @@ def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary)
         
         if pos_tag == "NST" and wxWordsDictinary[word_index] in ('ora', 'sAWa') and wxWordsDictinary[word_index-1] in ('kI', 'kA', 'ke'):
             continue
-                
+               
         elif pos_tag=="VM" and word_info in ["main", "ccof", "rc"]: #Do not add suffix for these words because we have to do TAM search on them and it creates a problem later.
             # print(word)
             final_word=tam_rules(word,word_index,pof_check)
@@ -363,15 +365,19 @@ def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary)
             if word in already_visited:
                 if already_visited[word]==1:
                     continue
+                
         elif pos_tag=="NNC" or word_info=="pof":
             if class_index in temp_use:
                 concept_list.remove(temp_use[class_index]) 
-                del temp_use[class_index]  
+                del temp_use[class_index] 
+
+               
             final_word=for_handling_nnc_tag_or_pof(word,class_index,wxWordsDictionary,word_info)
             temp_use[class_index]=final_word
+            # print(temp_use[class_index])
             concept_list.append(final_word)
             pof_check[word]=final_word
-            # print(concept_list)
+            
         elif pos_tag=="PRPC":
             final_word = for_handling_prpc(word, word_index, rootWordDictReverse, infoListFinal, wxWordsDictinary)
             concept_list.append(final_word)
@@ -389,7 +395,7 @@ def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary)
                 if ele_remove is not None and ele_remove in concept_list:
                     concept_list.remove(ele_remove)
                 pof_check[word]=root_word
-
+                
                 #Rule to add _1 in eka
                 if key_to_check == 'eka':
                     root_word = root_word + '_1'
@@ -404,7 +410,7 @@ def get_row2(wxOutputList, wxWordsDictinaryNew, infoListFinal, wxWordsDictinary)
                 if(word_index not in already_visited):
                     # print(already_visited)
                     store_t=root_word+"_1"
-                    with open('txt_files/measuring_units.txt','r') as file:
+                    with open(f'{PATH}txt_files/measuring_units.txt','r') as file:
                         units=file.read()
                         units_list=units.split("\n")
                     if root_word in units_list:

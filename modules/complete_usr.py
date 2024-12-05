@@ -1,18 +1,18 @@
 import os
+from set_path import PATH
 
-path = '/home/riya/usrproginst/modules/'
 scripts=[
-    f"{path}main_sent.py",
-    f"{path}concept_row_mod.py",
-    f"{path}indexing_module.py", 
-    f"{path}sem_cat_module.py",
-    f"{path}morpho_sem_module.py", 
-    f"{path}dependency_module.py",
-    f"{path}discourse_module.py",
-    f"{path}spk_view_module.py", 
-    f"{path}scope_module.py",
-    f"{path}sent_type_module.py",
-    f"{path}construction_module.py"
+    f"{PATH}/modules/main_sent.py",
+    f"{PATH}/modules/concept_row_mod.py",
+    f"{PATH}/modules/indexing_module.py", 
+    f"{PATH}/modules/sem_cat_module.py",
+    f"{PATH}/modules/morpho_sem_module.py", 
+    f"{PATH}/modules/dependency_module.py",
+    f"{PATH}/modules/discourse_module.py",
+    f"{PATH}/modules/spk_view_module.py", 
+    f"{PATH}/modules/scope_module.py",
+    f"{PATH}/modules/sent_type_module.py",
+    f"{PATH}/modules/construction_module.py"
 ]
 
 def run_script(script_name):

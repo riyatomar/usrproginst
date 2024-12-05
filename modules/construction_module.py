@@ -3,16 +3,18 @@ from usr_func import get_parser_output_list, get_info_list_final, get_wx_words_d
 from concept_row_mod import get_row2
 
 def get_row11(row_2,infoListFinal,wxWordsDictionary,rootWordDictReverse):
-    conj_list = ["Ora", "waWA", "evaM"]
-    disjunct_list = ["yA", "aWavA", "va"]
+    conj_list = ["Ora", "waWA", "evaM", "va"]
+    disjunct_list = ["yA", "aWavA"]
     final_result = []
 
+    # print(infoListFinal)
+    
     # for concept in row_2:
     for cc_item in (item for item in infoListFinal if item[1] == "CC"):
         cc_class_index = cc_item[2]
         cc_dependency = cc_item[3]
         cc_root_word = rootWordDictReverse.get(wxWordsDictionary.get(cc_item[0]))
-        # print(cc_root_word)
+
         if cc_root_word is not None:
             const_list = []
             matching_values = [(value, index) for index, value in enumerate(infoListFinal)
@@ -30,6 +32,8 @@ def get_row11(row_2,infoListFinal,wxWordsDictionary,rootWordDictReverse):
 
             if result_entry is not None:
                 final_result.append(result_entry)
+        
+        print(rootWordDictReverse)
 
     if not final_result:
         final_result.append(" ")

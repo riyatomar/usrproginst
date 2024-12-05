@@ -1,7 +1,9 @@
-parser_file_input="txt_files/parser-output.txt"
-prune_file_input="txt_files/prune-output.txt"
-wx_file_input="txt_files/wx.txt"
-ner_file_input="txt_files/ner_output"
+from set_path import PATH
+
+parser_file_input=f"{PATH}txt_files/parser-output.txt"
+prune_file_input=f"{PATH}txt_files/prune-output.txt"
+wx_file_input=f"{PATH}txt_files/wx.txt"
+ner_file_input=f"{PATH}txt_files/ner_output"
 # concept_dictionary_input="H_concept-to-mrs-rels.dat"
 
 #===========================================================
@@ -172,7 +174,7 @@ infoListFinal=get_info_list_final(parserOutputList)
 #====================================================================
 
 def get_TAM_dictionary_list():
-    f=open("dictionaries/TAM-num-per-details.tsv.wx","r")
+    f=open(f"{PATH}dictionaries/TAM-num-per-details.tsv.wx","r")
     TAM_dictionary_list=[]
     data=f.readlines()
     for line in data:
@@ -277,6 +279,8 @@ def for_handling_nnc_tag_or_pof(word,class_index,wxWordsDictionary,word_info):
     if word_info=="pof":
         final_word=root_word+"+"+root_word_class
         VM_already_visited[class_word]=final_word
+
+        # print(final_word)
     # print(final_word)
     return final_word
 

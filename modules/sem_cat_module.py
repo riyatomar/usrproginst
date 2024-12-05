@@ -12,7 +12,7 @@ def get_row4(row_2, pruneOutputList, nerDict):
                 if ner_tag == "B-PER":
                     ner_val = "per"
                 elif ner_tag == "B-LOC":
-                    ner_val = "loc"
+                    ner_val = "place"
                 elif ner_tag in ["B-ORG", "I-ORG"]:
                     ner_val = "org"
                 break
