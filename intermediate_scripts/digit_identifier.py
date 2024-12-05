@@ -1,6 +1,6 @@
-import re
-import sys
-
+import sys, os, re
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from modules.set_path import PATH
 
 def modify_digits_in_text(text):
     # Use a regular expression to find all sequences of digits with commas or points in the text
@@ -35,8 +35,8 @@ def process_and_save_file(input_file_path, output_file_path):
 
 
 # Example usage:
-input_file_path_example = "txt_files/bh-1"
-output_file_path_example = "txt_files/bh-1"
+input_file_path_example = f"{PATH}txt_files/bh-1"
+output_file_path_example = f"{PATH}txt_files/bh-1"
 
 process_and_save_file(input_file_path_example, output_file_path_example)
 

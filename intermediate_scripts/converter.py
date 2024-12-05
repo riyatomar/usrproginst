@@ -1,4 +1,7 @@
-import re 
+import sys, os, re
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from modules.set_path import PATH
+
 def create_pos_mapped_dict(pos_tag):
     #print("pos_tag_before:",pos_tag)
     mapper_dict={"NN":"n","NST":"nst","NNP":"n","NEG":"avy","PRP":"p",
@@ -173,9 +176,9 @@ def write_final_output(original_word,root_word,gender,number,person,tam,prune_fi
 
 if __name__=="__main__":
     #Open the parser output file and extract info of pos tag 
-    parser_file="txt_files/parser-output.txt"
-    prune_file="txt_files/prune-output.txt"
-    morph_file="txt_files/morph-output.txt"
+    parser_file=f"{PATH}txt_files/parser-output.txt"
+    prune_file=f"{PATH}txt_files/prune-output.txt"
+    morph_file=f"{PATH}txt_files/morph-output.txt"
     f=open(parser_file)
     pos_tag=[]
     matched_span=[]
