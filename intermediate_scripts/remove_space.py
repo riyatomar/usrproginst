@@ -1,4 +1,6 @@
-import re
+import sys, os, re
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from modules.set_path import PATH
 
 def remove_extra_spaces(file_path):
     # Read text from the file
@@ -13,7 +15,7 @@ def remove_extra_spaces(file_path):
         file.write(modified_text)
 
 # Provide the file path here
-file_path = 'txt_files/bh-1'
+file_path = f'{PATH}txt_files/bh-1'
 
 # Call the function to remove extra spaces
 remove_extra_spaces(file_path)

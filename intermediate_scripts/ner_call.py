@@ -1,5 +1,8 @@
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 import torch
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from modules.set_path import PATH
 
 tokenizer = AutoTokenizer.from_pretrained("AI4bharatner_tokenizer")
 
@@ -45,12 +48,12 @@ def call_ner_model(sentence):
         final_op.append( sentence.split(' ')[index] + '\t' + predicted_labels[index] )
     return final_op
 if __name__=="__main__":
-    f=open("txt_files/bh-1","r")
+    f=open(f"{PATH}txt_files/bh-1","r")
     sent=f.readline()
     ner_op=call_ner_model(sent.strip())
     f.close()
     #print(ner_op)
-    f=open("txt_files/ner_output","w")
+    f=open(f"{PATH}txt_files/ner_output","w")
     for ner_val in ner_op:
         f.write(ner_val+"\n")
     f.close()

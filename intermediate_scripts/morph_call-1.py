@@ -1,9 +1,11 @@
-import os
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from modules.set_path import PATH
 
-input_folder = "txt_files/"
+input_folder = f"{PATH}txt_files/"
 sentence_file = "wx.txt"
-single_concept_inp = "concept.txt"
-single_concept_out = "concept.txt-out.txt"
+single_concept_inp = f"{PATH}concept.txt"
+single_concept_out = f"{PATH}concept.txt-out.txt"
 output_file = "morph-output.txt"
 
 input_file_path = os.path.join(input_folder, sentence_file)

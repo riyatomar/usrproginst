@@ -1,5 +1,6 @@
-import os
-import re 
+import sys, os, re
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from modules.set_path import PATH
 
 def create_pos_mapped_dict(pos_tag):
     mapper_dict={"NN":"n","NST":"nst","NNP":"n","NEG":"avy","PRP":"p",
@@ -148,11 +149,11 @@ def write_final_output(original_word, root_word, gender, number, person, tam, pr
             f.write(str(i+1) + "\t" + original_word[i] + "\t" + root_word[i].strip("*") + "\t" + "unk" + "\t" + "unk" + "\t" + "unk" + "\t" + "unk" + "\n")
 
 if __name__ == "__main__":
-    input_folder = "txt_files/"
-    sentence_file = "wx.txt"
-    single_concept_inp = "concept.txt"
-    single_concept_out = "concept.txt-out.txt"
-    output_file = "morph-output.txt"
+    input_folder = f"{PATH}txt_files/"
+    sentence_file = f"{PATH}wx.txt"
+    single_concept_inp = f"{PATH}concept.txt"
+    single_concept_out = f"{PATH}concept.txt-out.txt"
+    output_file = f"{PATH}morph-output.txt"
 
     input_file_path = os.path.join(input_folder, sentence_file)
     output_file_path = os.path.join(input_folder, output_file)
@@ -187,9 +188,9 @@ if __name__ == "__main__":
                     with open(single_concept_out, "w") as con_out:
                         con_out.write("")
 
-        parser_file = "txt_files/parser-output.txt"
-        prune_file = "txt_files/prune-output.txt"
-        morph_file = "txt_files/morph-output.txt"
+        parser_file = f"{PATH}txt_files/parser-output.txt"
+        prune_file = f"{PATH}txt_files/prune-output.txt"
+        morph_file = f"{PATH}txt_files/morph-output.txt"
 
         f = open(parser_file)
         pos_tag = []

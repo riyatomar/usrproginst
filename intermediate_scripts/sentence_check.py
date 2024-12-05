@@ -1,4 +1,7 @@
-import os
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from modules.set_path import PATH
+
 
 def check_punctuation(sentence):
     flag = 0
@@ -53,7 +56,7 @@ def add_space_around_punctuation(sentence):
 
 
 def remove_starting_connectives(sentence):
-    SIMPLE_CONNECTIVES = ['और', 'एवं', 'इसलिए', 'क्योंकि', 'जबकि', 'तथा', 'ताकि', 'मगर', 'लेकिन', 'किंतु', 'परंतु', 'फिर भी', 'या', 'तथापि',
+    SIMPLE_CONNECTIVES = ['और', 'तभी', 'एवं', 'इसलिए', 'इसलिये', 'क्योंकि', 'जबकि', 'तथा', 'ताकि', 'मगर', 'लेकिन', 'किंतु', 'परंतु', 'फिर भी', 'या', 'तथापि',
                           'नहीं तो', 'व', 'चूंकि', 'चूँकि', 'वरना', 'अन्यथा', 'बशर्तें', 'हालाँकि', 'इसीलिये', 'इसीलिए', 'इसलिए', 'अथवा', 'अतः', 'अर्थात्', 'जब', 'तो', 'परन्तु', 'कि', 'बल्कि', 'पर']
     
     # Loop through the connectives
@@ -66,8 +69,8 @@ def remove_starting_connectives(sentence):
 
 
 if __name__ == "__main__":
-    file_name_input = "txt_files/bh-1"
-    file_name_output = "txt_files/bh-1"
+    file_name_input = f"{PATH}txt_files/bh-1"
+    file_name_output = f"{PATH}txt_files/bh-1"
     
     with open(file_name_input, "r", encoding="UTF-8") as f:
         sentence = f.readline().strip()

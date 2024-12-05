@@ -1,12 +1,13 @@
 from discourse_mapped_rel import USR
-import sys
-import os
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from modules.set_path import PATH
 
 n = len(sys.argv)
 
 #input_dir = "bulk_USRs/"
-input_dir = "/home/lc4eu/LC/usrproginst/txt_files/bulk_USRs"
-output_dir = "/home/lc4eu/LC/usrproginst/txt_files/bulk_USRs_mod"
+input_dir = f"{PATH}txt_files/bulk_USRs"
+output_dir = f"{PATH}txt_files/bulk_USRs_mod"
 input_mode = 0
 
 if input_dir == "":
