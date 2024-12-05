@@ -33,7 +33,7 @@ def get_row11(row_2,infoListFinal,wxWordsDictionary,rootWordDictReverse):
             if result_entry is not None:
                 final_result.append(result_entry)
         
-        print(rootWordDictReverse)
+        # print(rootWordDictReverse)
 
     if not final_result:
         final_result.append(" ")
