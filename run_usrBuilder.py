@@ -2,7 +2,7 @@ import os
 from modules.set_path import PATH
 
 commands = [
-    # f"python3 {PATH}run_generate_usr.py",
+    f"python3 {PATH}intermediate_scripts/run_generate_usr.py",
     f"python3 {PATH}intermediate_scripts/run_usr.py",
     f"python3 {PATH}process_usr_files/csv2vertical_format.py {PATH}txt_files/bulk_USRs_mod/ {PATH}usr_processed/verticle_USRs",
     f"python3 {PATH}process_usr_files/merger.py {PATH}usr_processed/verticle_USRs/ {PATH}usr_processed/merged_USR",
